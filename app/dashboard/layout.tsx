@@ -1,35 +1,33 @@
-import { ReactNode } from "react";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import DashboardTopbar from "@/components/dashboard/DashboardTopbar";
 
 export default function DashboardLayout({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-base-200">
-      <div className="drawer lg:drawer-open">
+    <div className="drawer lg:drawer-open">
 
-        <input
-          id="dashboard-drawer"
-          type="checkbox"
-          className="drawer-toggle"
-        />
+      <input
+        id="dashboard-drawer"
+        type="checkbox"
+        className="drawer-toggle"
+      />
 
-        <div className="drawer-content flex flex-col">
+      <div className="drawer-content flex flex-col min-h-screen">
 
-          <DashboardTopbar />
+        <DashboardTopbar />
 
-          <main className="p-6">
-            {children}
-          </main>
-
-        </div>
-
-        <DashboardSidebar />
+        <main className="p-6 bg-base-200 flex-1">
+          {children}
+        </main>
 
       </div>
+
+
+      <DashboardSidebar />
+
     </div>
   );
 }
