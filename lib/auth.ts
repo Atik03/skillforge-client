@@ -1,3 +1,11 @@
+import dns from "node:dns";
+
+dns.setServers([
+  "8.8.8.8",
+  "8.8.4.4",
+]);
+
+
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
@@ -14,10 +22,5 @@ export const auth = betterAuth({
   emailAndPassword: { 
     enabled: true, 
   }, 
-  socialProviders: { 
-    github: { 
-      clientId: process.env.GITHUB_CLIENT_ID as string, 
-      // clientSecret: process.env.GITHUB_CLIENT_SECRET as string, 
-    }, 
-  }, 
+ 
 });
