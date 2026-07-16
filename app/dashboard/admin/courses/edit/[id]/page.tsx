@@ -14,7 +14,7 @@ const courseSchema = z.object({
   level: z.string().min(2, "Level is required"),
   instructor: z.string().min(3, "Instructor name is required"),
   duration: z.string().min(2, "Duration is required"),
-  price: z.coerce.number().min(0),
+  price: z.number().min(0),
   thumbnail: z.string().url("Enter a valid image URL"),
   shortDescription: z.string().min(20, "Minimum 20 characters"),
   description: z.string().min(50, "Minimum 50 characters"),
@@ -248,7 +248,9 @@ export default function EditCoursePage({
                 <input
                   type="number"
                   className="input input-bordered w-full"
-                  {...register("price")}
+                  {...register("price", {
+                    valueAsNumber: true,
+                  })}
                 />
 
                 <p className="text-error text-sm">{errors.price?.message}</p>

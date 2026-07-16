@@ -7,7 +7,7 @@ import CourseFilters from "@/components/courses/CourseFilters";
 import CourseSkeleton from "@/components/courses/CourseSkeleton";
 
 export interface Course {
-  _id?: string;
+  _id: string;
 
   title: string;
 

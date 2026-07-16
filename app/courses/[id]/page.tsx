@@ -50,6 +50,11 @@ export default function CourseDetails({
       return;
     }
 
+    if (!course) {
+      toast.error("Course not found.");
+      return;
+    }
+
     try {
       setEnrolling(true);
 
@@ -57,24 +62,16 @@ export default function CourseDetails({
         `${process.env.NEXT_PUBLIC_API_URL}/enrollments`,
         {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
             courseId: course._id,
-
             courseTitle: course.title,
-
             courseThumbnail: course.thumbnail,
-
             instructorName: course.instructorName,
-
             studentName: session.user.name,
-
             studentEmail: session.user.email,
-
             price: course.price,
           }),
         },
@@ -90,7 +87,6 @@ export default function CourseDetails({
       toast.success("Enrollment Successful");
     } catch (error) {
       console.log(error);
-
       toast.error("Enrollment Failed");
     } finally {
       setEnrolling(false);
