@@ -74,14 +74,6 @@ export default function Navbar() {
           },
         ]
       : []),
-    {
-      href: "/about",
-      label: "About",
-    },
-    {
-      href: "/contact",
-      label: "Contact",
-    },
   ];
 
   return (
@@ -102,14 +94,6 @@ export default function Navbar() {
 
         <div className="navbar-start hidden lg:flex">
           <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="SkillForge"
-              width={40}
-              height={40}
-              priority
-            />
-
             <span className="text-2xl font-bold text-primary">SkillForge</span>
           </Link>
         </div>
@@ -118,8 +102,6 @@ export default function Navbar() {
 
         <div className="navbar-center lg:hidden">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="SkillForge" width={36} height={36} />
-
             <span className="font-bold text-xl">SkillForge</span>
           </Link>
         </div>

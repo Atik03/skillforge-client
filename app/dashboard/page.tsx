@@ -5,111 +5,46 @@ import { useRouter } from "next/navigation";
 
 import { authClient } from "@/lib/auth-client";
 
-
 export default function DashboardPage() {
-
   const router = useRouter();
 
-
-  const {
-    data: session,
-    isPending,
-  } = authClient.useSession();
-
-
+  const { data: session, isPending } = authClient.useSession();
 
   useEffect(() => {
+    const checkRole = async () => {
+      if (!session?.user?.email) return;
 
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${session.user.email}`,
+        );
 
-    const checkRole = async()=>{
+        const result = await res.json();
 
+        if (result.success) {
+          const role = result.data.role;
 
-      if(!session?.user?.email)
-        return;
-
-
-
-      try{
-
-
-        const res =
-          await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/users/${session.user.email}`
-          );
-
-
-        const result =
-          await res.json();
-
-
-
-        if(result.success){
-
-
-          const role =
-            result.data.role;
-
-
-
-          if(role === "admin"){
-
-            router.replace(
-              "/dashboard/admin"
-            );
-
-
-          }else{
-
-            router.replace(
-              "/dashboard/student"
-            );
-
+          if (role === "admin") {
+            router.replace("/dashboard/admin");
+          } else {
+            router.replace("/dashboard/student");
           }
-
-
         }
-
-
-
-      }catch(error){
-
+      } catch (error) {
         console.log(error);
-
       }
-
-
     };
 
-
-
     checkRole();
+  }, [session, router]);
 
-
-  },[
-    session,
-    router
-  ]);
-
-
-
-
-
-  if(isPending){
-
+  if (isPending) {
     return (
-
       <div className="min-h-screen flex items-center justify-center">
-
         <span className="loading loading-spinner loading-lg" />
-
       </div>
-
     );
-
   }
 
-
-
   return null;
-
 }
